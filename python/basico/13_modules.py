@@ -1,21 +1,5 @@
 ### Modules ###
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 from math import pi as PI_VALUE
 import math
 from my_module import sumValue, printValue
