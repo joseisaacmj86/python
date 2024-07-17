@@ -2,7 +2,7 @@
 languaje = "python"
 print(languaje.capitalize())
 print(languaje.upper())
-print(languaje.lower())
+print(languaje.lower()) #pasa a minuscula
 print(languaje.count("t"))
 print(languaje.find("t"))
 print(languaje.isalnum())
