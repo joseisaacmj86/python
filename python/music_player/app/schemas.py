@@ -55,6 +55,16 @@ class IngresoBase2(BaseModel):
     nombrepersona: str
 
 
+class Cancion(BaseModel):
+    song_id: int
+    album_id: int
+    song_name: str
+    duration_time: str
+    
+    class Config:
+        orm_mode = True
+
+
 
 """
 class UserBase(BaseModel):

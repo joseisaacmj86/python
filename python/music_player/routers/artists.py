@@ -1,11 +1,11 @@
-from fastapi import APIRouter, HTTPException, Depends, status
+from fastapi import APIRouter, HTTPException, Depends, status, Query
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 from app.database import SessionLocal
 import app.models as models
 from app.schemas import Artist, ArtistCreate
+from app.search import get_artist_data
 
-# router = APIRouter()
 router = APIRouter(prefix="/artists",
                    tags=["artists"],
                    responses={status.HTTP_404_NOT_FOUND: {"message": "No encontrado"}})
@@ -55,3 +55,11 @@ async def update_artist(artist_id: int, artist: ArtistCreate, db: Session = Depe
     db.commit()
     db.refresh(db_artist)
     return db_artist
+
+
+@router.get("/{artist_id}/full", status_code=status.HTTP_200_OK)
+async def get_full_artist_data(artist_id: int, db: Session = Depends(get_db)):
+    artist_data = get_artist_data(artist_id, db)
+    if not artist_data:
+        raise HTTPException(status_code=404, detail="Artist not found")
+    return artist_data
