@@ -1,4 +1,6 @@
 from pydantic import BaseModel
+from typing import List
+
 
 
 class ArtistBase(BaseModel):
@@ -66,18 +68,38 @@ class Cancion(BaseModel):
 
 
 
-"""
-class UserBase(BaseModel):
-    name: str
+
+# Schemas para add_data
+class SongCreate(BaseModel):
+    song_id: int
+    album_id: int
+    song_name: str
+    duration_time: str
+
+class AlbumCreate(BaseModel):
+    album_id: int
+    artist_id: int
+    name_album: str
+    year: int
+    songs: List[SongCreate]
+
+class ArtistCreate(BaseModel):
+    artist_id: int
+    first_name: str
+    last_name: str
+    band_name: str
+    albums: List[AlbumCreate]
+
+
+#Schemas users
+class User(BaseModel):
+    username: str
+    full_name: str
     email: str
+    role: str
+    type_license: str
+    disabled: bool
 
-class UserCreate(UserBase):
+
+class UserPass(User):
     password: str
-
-class User(UserBase):
-    id: int
-
-    class Config:
-        orm_mode = True
-        
-"""

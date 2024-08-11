@@ -18,7 +18,7 @@ def get_db():
 
 @router.post("/", response_model=Cancion, status_code=status.HTTP_201_CREATED)
 async def create_cancion(cancion: CancionCreate, db: Session = Depends(get_db)):
-    db_cancion = models.Cancion(**cancion.dict())
+    db_cancion = models.Song(**cancion.dict())
     db.add(db_cancion)
     db.commit()
     db.refresh(db_cancion)
@@ -26,18 +26,18 @@ async def create_cancion(cancion: CancionCreate, db: Session = Depends(get_db)):
 
 @router.get("/", response_model=List[Cancion], status_code=status.HTTP_200_OK)
 async def get_canciones(db: Session = Depends(get_db)):
-    return db.query(models.Cancion).all()
+    return db.query(models.Song).all()
 
 @router.get("/{song_id}", response_model=Cancion, status_code=status.HTTP_200_OK)
 async def get_cancion(song_id: int, db: Session = Depends(get_db)):
-    cancion = db.query(models.Cancion).filter(models.Cancion.song_id == song_id).first()
+    cancion = db.query(models.Song).filter(models.Song.song_id == song_id).first()
     if cancion is None:
         raise HTTPException(status_code=404, detail="Cancion not found")
     return cancion
 
 @router.delete("/{song_id}", status_code=status.HTTP_200_OK)
 async def delete_cancion(song_id: int, db: Session = Depends(get_db)):
-    cancion = db.query(models.Cancion).filter(models.Cancion.song_id == song_id).first()
+    cancion = db.query(models.Song).filter(models.Song.song_id == song_id).first()
     if cancion is None:
         raise HTTPException(status_code=404, detail="Cancion not found")
     db.delete(cancion)
@@ -46,7 +46,7 @@ async def delete_cancion(song_id: int, db: Session = Depends(get_db)):
 
 @router.put("/{song_id}", response_model=Cancion, status_code=status.HTTP_200_OK)
 async def update_cancion(song_id: int, cancion: CancionCreate, db: Session = Depends(get_db)):
-    db_cancion = db.query(models.Cancion).filter(models.Cancion.song_id == song_id).first()
+    db_cancion = db.query(models.Song).filter(models.Song.song_id == song_id).first()
     if db_cancion is None:
         raise HTTPException(status_code=404, detail="Cancion not found")
     for key, value in cancion.dict().items():

@@ -1,0 +1,172 @@
+[
+    {
+        "artist_id": 1,
+        "first_name": "",
+        "last_name": "",
+        "band_name": "The Beatles",
+        "albums": [
+            {
+                "album_id": 1,
+                "artist_id": 1,
+                "name_album": "Abbey Road",
+                "year": 1969,
+                "songs": [
+                    {
+                        "song_id": 1,
+                        "album_id": 1,
+                        "song_name": "Come Together",
+                        "duration_time": "04:20"
+                    },
+                    {
+                        "song_id": 2,
+                        "album_id": 1,
+                        "song_name": "Something",
+                        "duration_time": "03:03"
+                    },
+                    {
+                        "song_id": 3,
+                        "album_id": 1,
+                        "song_name": "Here Comes The Sun",
+                        "duration_time": "03:05"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "artist_id": 2,
+        "first_name": "",
+        "last_name": "",
+        "band_name": "Led Zeppelin",
+        "albums": [
+            {
+                "album_id": 2,
+                "artist_id": 2,
+                "name_album": "Led Zeppelin IV",
+                "year": 1971,
+                "songs": [
+                    {
+                        "song_id": 4,
+                        "album_id": 2,
+                        "song_name": "Stairway to Heaven",
+                        "duration_time": "08:02"
+                    },
+                    {
+                        "song_id": 5,
+                        "album_id": 2,
+                        "song_name": "Black Dog",
+                        "duration_time": "04:54"
+                    },
+                    {
+                        "song_id": 6,
+                        "album_id": 2,
+                        "song_name": "Rock and Roll",
+                        "duration_time": "03:40"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "artist_id": 3,
+        "first_name": "",
+        "last_name": "",
+        "band_name": "Pink Floyd",
+        "albums": [
+            {
+                "album_id": 3,
+                "artist_id": 3,
+                "name_album": "The Dark Side of the Moon",
+                "year": 1973,
+                "songs": [
+                    {
+                        "song_id": 7,
+                        "album_id": 3,
+                        "song_name": "Speak to Me",
+                        "duration_time": "01:30"
+                    },
+                    {
+                        "song_id": 8,
+                        "album_id": 3,
+                        "song_name": "Breathe",
+                        "duration_time": "02:43"
+                    },
+                    {
+                        "song_id": 9,
+                        "album_id": 3,
+                        "song_name": "Time",
+                        "duration_time": "06:53"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "artist_id": 4,
+        "first_name": "",
+        "last_name": "",
+        "band_name": "The Rolling Stones",
+        "albums": [
+            {
+                "album_id": 4,
+                "artist_id": 4,
+                "name_album": "Let It Bleed",
+                "year": 1969,
+                "songs": [
+                    {
+                        "song_id": 10,
+                        "album_id": 4,
+                        "song_name": "Gimme Shelter",
+                        "duration_time": "04:30"
+                    },
+                    {
+                        "song_id": 11,
+                        "album_id": 4,
+                        "song_name": "You Can't Always Get What You Want",
+                        "duration_time": "07:28"
+                    },
+                    {
+                        "song_id": 12,
+                        "album_id": 4,
+                        "song_name": "Midnight Rambler",
+                        "duration_time": "06:53"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "artist_id": 5,
+        "first_name": "",
+        "last_name": "",
+        "band_name": "Queen",
+        "albums": [
+            {
+                "album_id": 5,
+                "artist_id": 5,
+                "name_album": "A Night at the Opera",
+                "year": 1975,
+                "songs": [
+                    {
+                        "song_id": 13,
+                        "album_id": 5,
+                        "song_name": "Bohemian Rhapsody",
+                        "duration_time": "05:55"
+                    },
+                    {
+                        "song_id": 14,
+                        "album_id": 5,
+                        "song_name": "You're My Best Friend",
+                        "duration_time": "02:50"
+                    },
+                    {
+                        "song_id": 15,
+                        "album_id": 5,
+                        "song_name": "Love of My Life",
+                        "duration_time": "03:38"
+                    }
+                ]
+            }
+        ]
+    }
+]

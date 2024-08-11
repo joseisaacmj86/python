@@ -18,7 +18,7 @@ def get_db():
     finally:
         db.close()
 
-@router.get("/search", status_code=status.HTTP_200_OK)
+@router.get("/", status_code=status.HTTP_200_OK)
 async def get_artist_data(search_data: Optional[str] = Query(None), db: Session = Depends(get_db)):
     if not search_data:
         raise HTTPException(status_code=400, detail="search_data parameter is required")
@@ -39,12 +39,12 @@ async def get_artist_data(search_data: Optional[str] = Query(None), db: Session 
         album_keyword_filter = func.lower(models.Album.name_album).ilike(f"%{keyword.lower()}%")
         album_filters.append(album_keyword_filter)
 
-        song_keyword_filter = func.lower(models.Cancion.song_name).ilike(f"%{keyword.lower()}%")
+        song_keyword_filter = func.lower(models.Song.song_name).ilike(f"%{keyword.lower()}%")
         song_filters.append(song_keyword_filter)
     
     artist_query = db.query(models.Artist).filter(and_(*artist_filters))
     album_query = db.query(models.Album).filter(and_(*album_filters))
-    song_query = db.query(models.Cancion).filter(and_(*song_filters))
+    song_query = db.query(models.Song).filter(and_(*song_filters))
 
     artists = artist_query.all()
     albums = album_query.all()
@@ -75,7 +75,7 @@ async def get_artist_data(search_data: Optional[str] = Query(None), db: Session 
                 "songs": []
             }
 
-            artist_songs = db.query(models.Cancion).filter(models.Cancion.album_id == album.album_id).all()
+            artist_songs = db.query(models.Song).filter(models.Song.album_id == album.album_id).all()
             for song in artist_songs:
                 song_data = {
                     "song_id": song.song_id,
@@ -109,7 +109,7 @@ async def get_artist_data(search_data: Optional[str] = Query(None), db: Session 
                 "songs": []
             }
 
-            artist_songs = db.query(models.Cancion).filter(models.Cancion.album_id == album.album_id).all()
+            artist_songs = db.query(models.Song).filter(models.Song.album_id == album.album_id).all()
             for song in artist_songs:
                 song_data = {
                     "song_id": song.song_id,
