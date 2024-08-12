@@ -29,17 +29,14 @@ async def get_artist_data(search_data: Optional[str] = Query(None), db: Session 
     song_filters = []
 
     for keyword in keywords:
-        keyword_filter = or_(
-            func.lower(models.Artist.first_name).ilike(f"%{keyword.lower()}%"),
-            func.lower(models.Artist.last_name).ilike(f"%{keyword.lower()}%"),
-            func.lower(models.Artist.band_name).ilike(f"%{keyword.lower()}%")
-        )
-        artist_filters.append(keyword_filter)
         
-        album_keyword_filter = func.lower(models.Album.name_album).ilike(f"%{keyword.lower()}%")
+        artist_keyword_filter = func.lower(models.Artist.artist).ilike(f"%{keyword.lower()}%")
+        artist_filters.append(artist_keyword_filter)
+        
+        album_keyword_filter = func.lower(models.Album.album).ilike(f"%{keyword.lower()}%")
         album_filters.append(album_keyword_filter)
 
-        song_keyword_filter = func.lower(models.Song.song_name).ilike(f"%{keyword.lower()}%")
+        song_keyword_filter = func.lower(models.Song.title).ilike(f"%{keyword.lower()}%")
         song_filters.append(song_keyword_filter)
     
     artist_query = db.query(models.Artist).filter(and_(*artist_filters))
@@ -59,9 +56,8 @@ async def get_artist_data(search_data: Optional[str] = Query(None), db: Session 
     for artist in artists:
         artist_data = {
             "artist_id": artist.artist_id,
-            "first_name": artist.first_name,
-            "last_name": artist.last_name,
-            "band_name": artist.band_name,
+            "artist": artist.artist,
+            "genre": artist.genre,            
             "albums": []
         }
 
@@ -70,7 +66,7 @@ async def get_artist_data(search_data: Optional[str] = Query(None), db: Session 
             album_data = {
                 "album_id": album.album_id,
                 "artist_id": album.artist_id,
-                "name_album": album.name_album,
+                "album": album.album,
                 "year": album.year,
                 "songs": []
             }
@@ -80,8 +76,10 @@ async def get_artist_data(search_data: Optional[str] = Query(None), db: Session 
                 song_data = {
                     "song_id": song.song_id,
                     "album_id": song.album_id,
-                    "song_name": song.song_name,
-                    "duration_time": song.duration_time
+                    "title": song.title,
+                    "track_number": song.track_number,
+                    "duration": song.duration,
+                    "lyrics": song.lyrics
                 }
                 album_data["songs"].append(song_data)
 
@@ -95,16 +93,15 @@ async def get_artist_data(search_data: Optional[str] = Query(None), db: Session 
         if artist:
             artist_data = {
                 "artist_id": artist.artist_id,
-                "first_name": artist.first_name,
-                "last_name": artist.last_name,
-                "band_name": artist.band_name,
+                "artist": artist.artist,
+                "genre": artist.genre,            
                 "albums": []
             }
 
             album_data = {
                 "album_id": album.album_id,
                 "artist_id": album.artist_id,
-                "name_album": album.name_album,
+                "album": album.album,
                 "year": album.year,
                 "songs": []
             }
@@ -114,22 +111,16 @@ async def get_artist_data(search_data: Optional[str] = Query(None), db: Session 
                 song_data = {
                     "song_id": song.song_id,
                     "album_id": song.album_id,
-                    "song_name": song.song_name,
-                    "duration_time": song.duration_time
+                    "title": song.title,
+                    "track_number": song.track_number,
+                    "duration": song.duration,
+                    "lyrics": song.lyrics
                 }
                 album_data["songs"].append(song_data)
 
             artist_data["albums"].append(album_data)
             result.append(artist_data)
-            """
-            # Check if artist_data already exists in result to avoid duplicates
-            if artist_data not in result:
-                result.append(artist_data)
-            else:
-                # If the artist already exists in result, append the new album to the existing artist's albums
-                existing_artist_data = next(item for item in result if item["artist_id"] == artist.artist_id)
-                existing_artist_data["albums"].append(album_data)
-            """
+           
     # Process songs
     for song in songs:
         artist_album = db.query(models.Album).filter(models.Album.album_id == song.album_id).first()
@@ -138,16 +129,15 @@ async def get_artist_data(search_data: Optional[str] = Query(None), db: Session 
             if artist:
                 artist_data = {
                     "artist_id": artist.artist_id,
-                    "first_name": artist.first_name,
-                    "last_name": artist.last_name,
-                    "band_name": artist.band_name,
+                    "artist": artist.artist,
+                    "genre": artist.genre,            
                     "albums": []
                 }
 
                 album_data = {
                     "album_id": artist_album.album_id,
                     "artist_id": artist_album.artist_id,
-                    "name_album": artist_album.name_album,
+                    "album": artist_album.album,
                     "year": artist_album.year,
                     "songs": []
                 }
@@ -155,8 +145,10 @@ async def get_artist_data(search_data: Optional[str] = Query(None), db: Session 
                 song_data = {
                     "song_id": song.song_id,
                     "album_id": song.album_id,
-                    "song_name": song.song_name,
-                    "duration_time": song.duration_time
+                    "title": song.title,
+                    "track_number": song.track_number,
+                    "duration": song.duration,
+                    "lyrics": song.lyrics
                 }
                 album_data["songs"].append(song_data)
                 artist_data["albums"].append(album_data)
@@ -171,9 +163,8 @@ async def get_artist_data(search_data: Optional[str] = Query(None), db: Session 
         if artist_id not in unique_artists:
             unique_artists[artist_id] = {
                 "artist_id": artist["artist_id"],
-                "first_name": artist["first_name"],
-                "last_name": artist["last_name"],
-                "band_name": artist["band_name"],
+                "artist": artist["artist"],
+                "genre": artist["genre"],
                 "albums": []
             }
         

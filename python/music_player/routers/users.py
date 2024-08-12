@@ -1,11 +1,9 @@
 # Users API con autorización OAuth2 JWT ###
 
-from fastapi import APIRouter, HTTPException, Depends, status, Query
+from fastapi import APIRouter, HTTPException, Depends, status
 from sqlalchemy.orm import Session
-from typing import List, Optional
+from typing import List
 from app import models, schemas
-# from app.schemas import User, UserPass
-#import app.models as models
 from app.database import SessionLocal
 
 router = APIRouter(prefix="/users",

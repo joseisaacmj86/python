@@ -17,26 +17,15 @@ class User(Base):
     disabled = Column(Boolean, index=True)
     password = Column(String(255))
     
-
-
-
-class Ingreso(Base):
-    __tablename__ = "registrodeingreso"
-
-    id = Column(Integer, primary_key=True, index=True)
-    documentoingreso = Column(String(11))
-    nombrepersona = Column(String(100))
     
-
 
 # Models para add_datat
 class Artist(Base):
     __tablename__ = "artists"
 
     artist_id = Column(Integer, primary_key=True, index=True)
-    first_name = Column(String(255), index=True)
-    last_name = Column(String(255), index=True)
-    band_name = Column(String(255), index=True)
+    artist = Column(String(255), index=True)
+    genre = Column(String(255), index=True)
     albums = relationship("Album", back_populates="artist")
 
 class Album(Base):
@@ -44,7 +33,7 @@ class Album(Base):
 
     album_id = Column(Integer, primary_key=True, index=True)
     artist_id = Column(Integer, ForeignKey("artists.artist_id"))
-    name_album = Column(String(255), index=True)
+    album = Column(String(255), index=True)
     year = Column(Integer)
     songs = relationship("Song", back_populates="album")
     artist = relationship("Artist", back_populates="albums")
@@ -54,8 +43,8 @@ class Song(Base):
 
     song_id = Column(Integer, primary_key=True, index=True)
     album_id = Column(Integer, ForeignKey("albums.album_id"))
-    song_name = Column(String(255), index=True)
-    duration_time = Column(String(255))
-    album = relationship("Album", back_populates="songs")
-
-   
+    title = Column(String(255), index=True)
+    track_number = Column(String(255))
+    duration = Column(String(255))    
+    lyrics = Column(String(255))
+    album = relationship("Album", back_populates="songs")  

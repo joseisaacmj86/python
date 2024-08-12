@@ -39,11 +39,10 @@ def get_db():
 
 
 def search_user(username: str, db: Session):
-    
     db_user = db.query(models.User).filter(models.User.username == username).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return User(**db_user.__dict__)
+    return User(**db_user.__dict__) # db_user.__dict__: convierte db_user en un diccionario
 
 
 async def auth_user(token: str = Depends(oauth2), db: Session = Depends(get_db)):
@@ -77,11 +76,11 @@ async def current_user(user: User = Depends(auth_user)):
 @router.post("/")
 async def login(form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
 
-    db_user = db.query(models.User).filter(models.User.username == form.username).first()
-    if db_user is None:
+    user = db.query(models.User).filter(models.User.username == form.username).first()
+    if user is None:
         raise HTTPException(status_code=404, detail="User not found")
    
-    user = db.query(models.User).filter(models.User.username == form.username).first()
+    # user = db.query(models.User).filter(models.User.username == form.username).first()
 
     if not crypt.verify(form.password, user.password): # A verify le pasamos el password que viene en el formulario (contraseña original) para que verifique con el password encriptado en db
         raise HTTPException(
@@ -94,6 +93,7 @@ async def login(form: OAuth2PasswordRequestForm = Depends(), db: Session = Depen
                    } 
 
     return {"access_token": jwt.encode(access_token, SECRET, algorithm=ALGORITHM), "token_type": "bearer", "token": Depends(oauth2)}
+
 
 
 
