@@ -17,7 +17,7 @@ Este proyecto es el backend para un reproductor de MP3 llamado **Music Player**.
 
 - **POST** `/login`
   - **Descripción**: Permite realizar el login y obtener un token JWT.
-  - **Body**: **form-data***
+  - **Body**: **form-data**
     - `username`: Nombre de usuario.
     - `password`: Contraseña.
 
@@ -31,7 +31,7 @@ Este proyecto es el backend para un reproductor de MP3 llamado **Music Player**.
 
 - **POST** `/users/`
   - **Descripción**: Crea un nuevo usuario.
-  - **Body**:**JSON**
+  - **Body**: **JSON**
     - `username`: Nombre para hacer login.
     - `full_name`: Nombre y apellidos del usuario.
     - `email`: Correo electrónico.
@@ -43,7 +43,7 @@ Este proyecto es el backend para un reproductor de MP3 llamado **Music Player**.
 
 - **PUT** `/users/{id_user}`
   - **Descripción**: Actualiza un usuario existente.
-  - **Body**:**JSON**
+  - **Body**: **JSON**
     - `username`: Nombre para hacer login.
     - `full_name`: Nombre y apellidos del usuario.
     - `email`: Correo electrónico.
@@ -72,14 +72,13 @@ Este proyecto es el backend para un reproductor de MP3 llamado **Music Player**.
 
 Para instalar las librerías necesarias para este proyecto, usa los siguientes comandos:
 
-| Librería                | Comando de Instalación                            |
-|-------------------------|---------------------------------------------------|
-| **FastAPI, Uvicorn y**  | `pip install fastapi uvicorn sqlalchemy pymysql`  |
-| **MySQL Connector**     |                                                   |
-| **jose (JWT)**          | `pip install python-jose[cryptography]`           |
-| **Pydantic**            | `pip install pydantic` (incluido con FastAPI)     |
-| **Typing**              | `pip install typing` (incluido con Python 3.5+)   |
-| **Mutagen**             | `pip install mutagen`                             |
+| Librería                     | Comando de Instalación                            |
+|------------------------------|---------------------------------------------------|
+| **FastAPI, Uvicorn y MySQL** | `pip install fastapi uvicorn sqlalchemy pymysql`  |
+| **jose (JWT)**               | `pip install python-jose[cryptography]`           |
+| **Pydantic**                 | `pip install pydantic` (incluido con FastAPI)     |
+| **Typing**                   | `pip install typing` (incluido con Python 3.5+)   |
+| **Mutagen**                  | `pip install mutagen`                             |
 
 ## Configuración de la Base de Datos
 
