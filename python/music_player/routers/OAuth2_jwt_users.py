@@ -1,18 +1,17 @@
-# Users API con autorización OAuth2 JWT ###
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import jwt, JWTError
 from passlib.context import CryptContext
-from datetime import datetime, timedelta # se usan para calcular el tiempo de duracion del token
+from datetime import datetime, timedelta
 from app.schemas import User, UserPass
 from app import models
 from sqlalchemy.orm import Session
 from app.database import SessionLocal
 
 ALGORITHM = "HS256" # algoritmo de incriptacion
-ACCESS_TOKEN_DURATION = 5 # 1 minute
+ACCESS_TOKEN_DURATION = 5 # 5 minute
 
 # generado desde la terminal con (openssl rand -hex 32)
 SECRET = "201d573bd7d1344d3a3bfce1550b69102fd11be3db6d379508b6cccc58ea230b"
@@ -80,8 +79,6 @@ async def login(form: OAuth2PasswordRequestForm = Depends(), db: Session = Depen
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
    
-    # user = db.query(models.User).filter(models.User.username == form.username).first()
-
     if not crypt.verify(form.password, user.password): # A verify le pasamos el password que viene en el formulario (contraseña original) para que verifique con el password encriptado en db
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="La contraseña no es correcta")

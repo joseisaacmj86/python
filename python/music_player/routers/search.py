@@ -1,5 +1,4 @@
-# busqueda por artista, albums y canciones, no sensible a mayusculas y trae varios resultado cuando hay mas de una 
-# coincidencia en la db
+
 from fastapi import APIRouter, HTTPException, Depends, Query, status
 from sqlalchemy.orm import Session
 from sqlalchemy import and_, or_, func

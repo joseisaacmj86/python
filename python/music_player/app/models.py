@@ -19,7 +19,6 @@ class User(Base):
     
     
 
-# Models para add_datat
 class Artist(Base):
     __tablename__ = "artists"
 

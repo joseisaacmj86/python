@@ -36,7 +36,6 @@ def get_mp3_metadata(file_path):
         "title": audio.get("TIT2", "Unknown Title").text[0] if audio.get("TIT2") else "Unknown Title",
         "artist": audio.get("TPE1", "Unknown Artist").text[0] if audio.get("TPE1") else "Unknown Artist",
         "album": audio.get("TALB", "Unknown Album").text[0] if audio.get("TALB") else "Unknown Album",
-        # Usa la función extract_year_from_mp3 para obtener el año
         "year": extract_year_from_mp3(file_path),
         "genre": audio.get("TCON", "Unknown Genre").text[0] if audio.get("TCON") else "Unknown Genre",
         "track_number": audio.get("TRCK", "Unknown Track Number").text[0] if audio.get("TRCK") else "Unknown Track Number",
